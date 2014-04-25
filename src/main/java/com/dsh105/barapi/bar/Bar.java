@@ -36,18 +36,15 @@ public class Bar {
     private ArrayList<BarMessage> messages = new ArrayList<BarMessage>();
     private HashMap<String, Integer> playerToViewMap = new HashMap<String, Integer>();
     private final int entityId;
-    private Location location;
     private BukkitTask task;
     private int secondsBetweenChange = 1;
 
-    public Bar(Location location, BarMessage message) {
-        this.location = location;
+    public Bar(BarMessage message) {
         this.entityId = EntityIdGenerator.nextId();
         this.setMessages(message);
     }
 
-    public Bar(Location location, int secondsBetweenChange, BarMessage... messages) {
-        this.location = location;
+    public Bar(int secondsBetweenChange, BarMessage... messages) {
         this.secondsBetweenChange = secondsBetweenChange;
         this.entityId = EntityIdGenerator.nextId();
         this.setMessages(messages);
@@ -91,7 +88,7 @@ public class Bar {
         }
     }
 
-    private HashMap<Player, Integer> getPlayerViews() {
+    public HashMap<Player, Integer> getPlayerViews() {
         HashMap<Player, Integer> map = new HashMap<Player, Integer>();
         for (Map.Entry<String, Integer> entry : this.playerToViewMap.entrySet()) {
             Player player = PlayerIdent.getPlayerOf(entry.getKey());
@@ -185,9 +182,9 @@ public class Bar {
         WrapperPacketSpawnEntityLiving spawn = new WrapperPacketSpawnEntityLiving();
         spawn.setEntityId(this.entityId);
         spawn.setEntityType(EntityType.ENDER_DRAGON.getTypeId());
-        spawn.setX(this.location.getX());
-        spawn.setY(this.location.getY());
-        spawn.setZ(this.location.getZ());
+        spawn.setX(observer.getLocation().getX());
+        spawn.setY(observer.getLocation().getY() - 300);
+        spawn.setZ(observer.getLocation().getZ());
         spawn.setMetadata(this.generateMeta(this.getCurrentMessage(observer)));
         spawn.send(observer);
     }
@@ -205,12 +202,12 @@ public class Bar {
         meta.send(observer);
     }
 
-    private void teleport(Player observer, Location location) {
+    private void teleport(Player observer) {
         WrapperPacketEntityTeleport teleport = new WrapperPacketEntityTeleport();
         teleport.setEntityId(this.entityId);
-        teleport.setX(location.getX());
-        teleport.setY(location.getY());
-        teleport.setZ(location.getZ());
+        teleport.setX(observer.getLocation().getX());
+        teleport.setY(observer.getLocation().getY() - 300);
+        teleport.setZ(observer.getLocation().getZ());
         teleport.send(observer);
     }
 }

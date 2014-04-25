@@ -31,4 +31,8 @@ public class BarAPI {
     public static BarAPICore getCore() {
         return CORE;
     }
+
+    public static BarManager getManager() {
+
+    }
 }
