@@ -9,12 +9,12 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class BarListener implements Listener {
 
-    @EventHandler
+    /*@EventHandler
     public void onQuit(PlayerQuitEvent event) {
         for (Bar b : BarAPI.getManager().getBars()) {
             if (b.getPlayerViews().containsKey(event.getPlayer())) {
                 b.clearFor(event.getPlayer());
             }
         }
-    }
+    }*/
 }

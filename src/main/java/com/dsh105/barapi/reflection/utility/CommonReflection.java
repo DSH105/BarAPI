@@ -105,7 +105,7 @@ public class CommonReflection {
             MethodAccessor<Object> getHandle = ClassTemplate.create(craftEntityClass).getMethod("getHandle");
             MINECARFT_PACKAGE = trimPackageName(getHandle.getReturnType().getCanonicalName());
 
-            if (!MINECARFT_PACKAGE.startsWith(MINECARFT_PACKAGE_PREFIX)) {
+            /*if (!MINECARFT_PACKAGE.startsWith(MINECARFT_PACKAGE_PREFIX)) {
 
                 // We're dealing with a Forge server.
                 // Credits to ProtocolLib for this method
@@ -131,7 +131,7 @@ public class CommonReflection {
                 } else {
                     MINECARFT_PACKAGE_PREFIX = MINECARFT_PACKAGE;
                 }
-            }
+            }*/
 
         } else {
             throw new IllegalStateException("Failed to find Bukkit!");
@@ -172,13 +172,7 @@ public class CommonReflection {
      */
     private static ClassHandler getDefaultClassHandler() {
         if (DEFAULT_HANDLER == null) {
-            try {
-                return DEFAULT_HANDLER = new RemappedClassHandler().initialize();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (UnsupportedOperationException e) {
-                DEFAULT_HANDLER = ClassHandler.fromClassLoader();
-            }
+            DEFAULT_HANDLER = ClassHandler.fromClassLoader();
         }
         return DEFAULT_HANDLER;
     }

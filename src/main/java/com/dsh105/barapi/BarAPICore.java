@@ -9,6 +9,6 @@ public class BarAPICore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        super.onEnable();
+        BarAPI.setCore(this);
     }
 }
